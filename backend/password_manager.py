@@ -38,9 +38,9 @@ class PasswordEntry(BaseModel):
 
 # File paths setup remains the same
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-USERS_FILE = os.path.join(BASE_DIR, "users.json")
-PASSWORDS_FILE = os.path.join(BASE_DIR, "passwords.csv")
-KEY_FILE = os.path.join(BASE_DIR, "encryption_key.key")
+USERS_FILE = os.path.join(BASE_DIR,"users", "users.json")
+PASSWORDS_FILE = os.path.join(BASE_DIR,"password", "passwords.csv")
+KEY_FILE = os.path.join(BASE_DIR,"key" ,"encryption_key.key")
 
 # Initialize encryption key (same as before)
 if not os.path.exists(KEY_FILE):
