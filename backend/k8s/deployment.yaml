@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: password-manager
+  namespace: password-app
+  labels:
+    app: password-manager
+spec:
+  replicas: 1  # Only one replica since we're using local storage
+  selector:
+    matchLabels:
+      app: password-manager
+  template:
+    metadata:
+      labels:
+        app: password-manager
+    spec:
+      containers:
+      - name: password-manager
+        image: password-manager:local
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: users
+          mountPath: /app/users
+        - name: encryption-key
+          mountPath: /app/key
+        - name : passwords
+          mountPath: /app/password
+      volumes:
+      - name: users
+        persistentVolumeClaim:
+          claimName: password-manager-users-pvc
+      - name: encryption-key
+        persistentVolumeClaim:
+          claimName: password-manager-key-pvc
+      - name: passwords
+        persistentVolumeClaim:
+          claimName: password-manager-passwords-pvc

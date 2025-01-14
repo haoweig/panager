@@ -1,0 +1,14 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: password-manager
+  namespace: password-app
+spec:
+  type: NodePort  # This makes the service accessible from outside the cluster
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 31234  # This will make your service accessible on localhost:30000
+  selector:
+    app: password-manager
